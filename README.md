@@ -145,11 +145,13 @@ cp build/libwlrobs.so ~/.config/obs-studio/plugins/wlrobs/bin/64bit
 
 ## Usage of wlrobs
 Now choose `Wayland output(scpy)` as new input source.
+
 ![wlrobs Source.png](wlrobs-source-add.png)
 
 I had to flip the blue and red values from the source, 
 in order to display colors correctly. 
 This can be done in the source preferences.
+
 ![wlrobs Source Preferences.png](wlrobs-source-preferences.png)
 
 Now you should be able to share your screen i.e. in Firefox.
