@@ -3,8 +3,17 @@ Screen Sharing with OBS Studio on Arch Linux and Sway
 If this guide gets out of date, 
 feel free to submit a merge/pull request with updated information.
 
-**PLEASE read the instructions of the listed self-built projects.**
-**They may have changed.**
+**Please read the instructions of the listed self-built projects.**
+**They explain more than I do and may have changed.**
+
+1. [Used Software](#Used-Software)
+2. [Install OBS Studio](#Install-OBS-Studio)
+3. [Install the v4l2loopback kernel module](#Install-the-v4l2loopback-kernel-module)
+4. [Install the obs-v4l2sink OBS-plugin](#Install-the-obs-v4l2sink-OBS-plugin)
+5. [Usage of obs-v4l2sink](#Usage-of-obs-v4l2sink)
+6. [Install the wlrobs OBS-plugin](#Install-the-wlrobs-OBS-plugin)
+7. [Usage of wlrobs](#Usage-of-wlrobs)
+8. [Versions of the used projects at the time of writing (2021-02-04)](#Versions-of-the-used-projects-at-the-time-of-writing-(2021-02-04))
 
 
 ## Used Software
