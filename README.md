@@ -176,6 +176,8 @@ if something is incorrect or out of date.
 >
 > SwayWM 1:1.5.1-1
 >
+> Xwayland 1.20.0.r844.g1e72c3ce8-1 (Arch Extra Repository)
+>
 > OBS 26.1.2-1 (Arch Community Repository)
 >
 > v4l2loopback-dkms 0.12.5-1 (Arch Community Repository)
