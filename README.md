@@ -29,8 +29,9 @@ OBS Studio can be downloaded from the Arch Community Repository.
 pacman -S obs-studio
 ```
 
-In order to be drawn correctly, 
-OBS needs the QT_QPA_PLATFORM environment variable specifically set to `xcb`.
+In order to have OBS drawn correctly, 
+I had to set the QT_QPA_PLATFORM environment variable specifically to `xcb`.
+Which is weird because it should be `wayland-egl` to use wayland as backend.
 ```sh
 # run OBS with
 QT_QPA_PLATFORM=xcb obs
