@@ -9,17 +9,14 @@ feel free to submit a merge/pull request with updated information.
 1. [Used Software](#Used-Software)
 2. [Install OBS Studio](#Install-OBS-Studio)
 3. [Install the v4l2loopback kernel module](#Install-the-v4l2loopback-kernel-module)
-4. [Install the obs-v4l2sink OBS-plugin](#Install-the-obs-v4l2sink-OBS-plugin)
-5. [Usage of obs-v4l2sink](#Usage-of-obs-v4l2sink)
-6. [Install the wlrobs OBS-plugin](#Install-the-wlrobs-OBS-plugin)
-7. [Usage of wlrobs](#Usage-of-wlrobs)
-8. [Versions of the used projects at the time of writing (2021-02-04)](#Versions-of-the-used-projects-at-the-time-of-writing-(2021-02-04))
+4. [Install the wlrobs OBS-plugin](#Install-the-wlrobs-OBS-plugin)
+5. [Usage of wlrobs](#Usage-of-wlrobs)
+6. [Versions of the used projects at the time of writing (2021-02-04)](#Versions-of-the-used-projects-at-the-time-of-writing-(2021-02-04))
 
 
 ## Used Software
 - [OBS Studio](https://obsproject.com/)
 - [v4l2loopback](https://github.com/umlaeute/v4l2loopback)
-- [obs-v4l2sink](https://github.com/CatxFish/obs-v4l2sink)
 - [wlrobs](https://hg.sr.ht/~scoopta/wlrobs)
 
 
@@ -27,17 +24,6 @@ feel free to submit a merge/pull request with updated information.
 OBS Studio can be downloaded from the Arch Community Repository.
 ```sh
 pacman -S obs-studio
-```
-
-In order to have OBS drawn correctly, 
-I had to set the QT_QPA_PLATFORM environment variable specifically to `xcb`.
-Which is weird because it should be `wayland-egl` to use wayland as backend.
-```sh
-# run OBS with
-QT_QPA_PLATFORM=xcb obs
-
-# I aliased it to 'obs' in my zsh config
-alias obs="QT_QPA_PLATFORM=xcb obs"
 ```
 
 
@@ -79,78 +65,9 @@ modprobe v4l2loopback
 >```
 
 
-## Install the obs-v4l2sink OBS-plugin
-This is needed to actually select a v4l2 virtual video device 
-(created by the v4l2loopback kernel module) in OBS as an output.
-More information on it's [github page](https://github.com/CatxFish/obs-v4l2sink).
-
-Now we are going to compile the plugin ourself.
-So that everything is a bit orderly, 
-I go to a folder in which I store my self-built packages and other stuff.
-```sh
-cd ~/builds
-```
-
-The instructions in the obs-v4l2sink README are only refering to apt packages.
-It worked for me without installing additional dependencies.
-However, I already got the `qt5-base` package installed.
-But I don't know about the `libobs-dev` package. 
-I couldn't find an equivalent in the Arch Repositories.
-
-```sh
-# in the aforementioned builds directory 
-# clone the obs-studio source code because 
-# an included library is needed by obs-v4l2sink
-git clone --recursive https://github.com/obsproject/obs-studio.git
-
-# this is copied from their README.md
-git clone https://github.com/CatxFish/obs-v4l2sink.git
-cd obs-v4l2sink
-mkdir build && cd build
-cmake -DLIBOBS_INCLUDE_DIR="../../obs-studio/libobs" -DCMAKE_INSTALL_PREFIX=/usr ..
-make -j4
-sudo make install
-```
-
-
-## Usage of obs-v4l2sink
-Now you can just follow the [Usage](https://github.com/CatxFish/obs-v4l2sink/blob/master/README.md#usage-with-v4l2loopback) instructions from obs-v4l2sink:
-
-- Open OBS and select the menu entry `Tools > V4L2 Video Output` 
-- Fill in the Device Path and select the appropriate video format.
-    >In my case the first created v4l2sink device was `/dev/video2`.
-    >![obs-v4l2sink Property Window](obs-v4l2sink-property-window.png)
-- Click the `Start` button.
-
-Now you are able to use a stream from OBS as a screen or a camera.
-
-
 ## Install the wlrobs OBS-plugin
-This plugin is responsible for actually recording screens from wlroots-based compositors. Like Sway.
-
-The plugin can be found [here](https://hg.sr.ht/~scoopta/wlrobs).
-It is a Mercurial repository.
-```sh
-# back to the builds directory
-cd ~/builds
-```
-
-Again the following basically worked for me.
-But you can set some options to disable specific backends.
-I didn't. 
-The `screencopy` backend works on my setup and the `dmabuf` backend doesn't.
-(Apparently you can compile OBS with an EGL backend and dmabuf works with that,
-as is stated in the plugin repository.)
-```sh
-# clone with the mercurial VCS
-# actually my first time using mercurial
-hg clone https://hg.sr.ht/~scoopta/wlrobs
-cd wlrobs
-meson build
-ninja -C build
-mkdir -p ~/.config/obs-studio/plugins/wlrobs/bin/64bit
-cp build/libwlrobs.so ~/.config/obs-studio/plugins/wlrobs/bin/64bit
-```
+This plugin is responsible for actually recording screens from wlroots-based compositors.
+It can be installed from the [AUR](https://aur.archlinux.org/packages/wlrobs/)
 
 
 ## Usage of wlrobs
@@ -172,17 +89,13 @@ Feel free to reach out to me,
 if something is incorrect or out of date.
 
 
-## Versions of the used projects at the time of writing (2021-02-04)
-> Arch Linux 5.10.12-arch1-1
+## Versions of the used projects at the time of writing (2022-01-06)
+> Linux 5.15.12.arch1-1
 >
-> SwayWM 1:1.5.1-1
+> SwayWM 1:1.6.1-2
 >
-> Xwayland 1.20.0.r844.g1e72c3ce8-1 (Arch Extra Repository)
+> OBS 27.1.3-3
 >
-> OBS 26.1.2-1 (Arch Community Repository)
+> v4l2loopback-dkms 0.12.5-1
 >
-> v4l2loopback-dkms 0.12.5-1 (Arch Community Repository)
->
-> obs-v4l2sink [master at this commit](https://github.com/CatxFish/obs-v4l2sink/commit/36d5bdb888be708ac9b22c11dff477fcd6511ccf)
->
-> wlrobs [default at this commit](https://hg.sr.ht/~scoopta/wlrobs/rev/02e7fd0062aff91c02a1915f0ca29e906877a01d)
+> wlrobs 1.0-1 (AUR)
