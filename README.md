@@ -1,7 +1,24 @@
+# Update 2023-04-29
+The setup described in this guide was intended as a workaround.
+Since then more and more software started supporting Wayland.
+Screen sharing in sway works (for me) now with the following packages out-of-the-box:
+- pipewire
+- wireplumber
+- xdg-desktop-portal
+- xdg-desktop-portal-wlr
+
+Firefox and Chromium-based browser can use xdg-desktop-portal for screen-sharing.
+Setting `QT_QPA_PLATFORM=xcb` for OBS is not needed anymore since it runs natively on wayland.
+OBS supports screen capturing from pipewire too.
+
+All that makes this guide kinda obsolete.
+
+I leave this guide here if anyone still wants to use this hacky workaround.
+But I strongly discourage it.
+
+
 Screen Sharing with OBS Studio on Arch Linux and Sway
 ===
-If this guide gets out of date, 
-feel free to submit a merge/pull request with updated information.
 
 **Please read the instructions of the listed self-built projects.**
 **They explain more than I do and may have changed.**
@@ -84,9 +101,7 @@ This can be done in the source preferences.
 Now you should be able to share your screen i.e. in Firefox.
 You can test it [here](https://mozilla.github.io/webrtc-landing/gum_test.html).
 
-Thank you for reading. 
-Feel free to reach out to me, 
-if something is incorrect or out of date.
+Thank you for reading.
 
 
 ## Versions of the used projects at the time of writing (2022-01-06)
